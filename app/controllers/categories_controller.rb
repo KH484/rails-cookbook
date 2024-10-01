@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @category = Category.new
+    @category = Category.new # using category as we are just talking about one - must be the same variable as in the view
   end
 
   def create
@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @categories = Category.find(params[:id])
+    @categories = Category.find(params[:id]) # using categories as it is a plural of get all the categories
     @category.destroy
     redirect_to categories_path status: :see_other
   end

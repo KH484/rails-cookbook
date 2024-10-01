@@ -1,0 +1,14 @@
+<h1>Which recipe would you like to add to your <%= @category.name %> list?</h1>
+
+<%= simple_form_for [@category, @bookmark] do |f| %>
+  <%= f.association :recipe %>   <%# this is the dropdown for the recipe list %>
+  <%= f.input :comment %>
+  <%= f.submit "add recipe" %>
+<% end %>
+
+<%# button to go back %>
+
+<%= link_to 'back', category_path(@category) %>
+
+<%# nested resources so need to reference category and bookmark in the form %>
+<%# making the association with the recipe you want with the f.association %>

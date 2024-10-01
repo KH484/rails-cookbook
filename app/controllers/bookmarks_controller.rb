@@ -1,0 +1,29 @@
+class BookmarksController < ApplicationController
+  def new
+    @category = Category.find(params[:category_id])
+    @bookmark = Bookmark.new
+  end
+
+  def create
+    @category = Category.find(params[:category_id])
+    @bookmark = Bookmark.new(bookmark_params)
+    @bookmark.category = @category
+    if @bookmark.save
+      redirect_to category_path(@category) # rails knows to pick the id
+    else
+      render :new, status: :unprocessable_entity # an error message to the user why it didn't save
+    end
+  end
+
+  def destroy
+    @bookmark = Bookmark.find(params[:id])
+    @bookmark.destroy
+    redirect_to category_path(@bookmark.category), status: :see_other
+  end
+
+  private
+
+  def bookmark_params
+    params.require(:bookmark).permit(:comment, :recipe_id)
+  end
+end
