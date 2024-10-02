@@ -1,21 +1,35 @@
-<h1><%= @category.name %></h1>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_path "Italian_food.jpg" %>);">
+  <div class="container">
+    <h1><%= @category.name %></h1>
+  </div>
+</div>
 
-<ul>
-  <% @category.bookmarks.each do |bookmark| %>
-  <li>
-    <h2><%= bookmark.recipe.name %> | </h2> <%= link_to "delete", bookmark_path(bookmark), data:
-    { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-    <p><%= bookmark.recipe.description %></p>
+<div class="d-flex justify-content-between category_nav">
+  <%= link_to "back to all categories", categories_path, class: "font-white btn btn-primary" %>
+  <%= link_to "add a new recipe to your list", new_category_bookmark_path(@category), class: "font-white btn btn-primary" %>
+</div>
 
-    <p>rating: <%= bookmark.recipe.rating %></p><%= bookmark.recipe.rating %>
-    <p><%= bookmark.comment %></p>
-  </li>
-  <% end %>
+<div class="card-trip">
+  <%= image_tag "spaghetti.jpg", class: "image" %>
+  <div class="card-container">
+    <% @category.bookmarks.each do |bookmark| %>
+    <div class="card-trip-infos">
+      <div>
+        <h2><%= bookmark.recipe.name %></h2>
+          <p><%= bookmark.comment %></p>
+      </div>
+      <p><%= bookmark.recipe.description %></p>
+      <p>rating: <%= bookmark.recipe.rating %></p><%= bookmark.recipe.rating %>
+    </div>
+  </div>
 
-  <%= link_to "back to all categories", categories_path %>
-  <%= link_to "add a new recipe to your list", new_category_bookmark_path(@category) %>
-</ul>
+  <div class="d-flex justify-content-between">
+    <%= link_to "delete", bookmark_path(bookmark), data:
+      { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "font-white btn btn-primary" %>
+    <% end %>
+  </div>
 
+</div>
 <%# back to the index page %>
 <%# link to add a new recipe (bookmark!) %>
 <%# add a new category %>
